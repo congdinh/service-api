@@ -12,14 +12,14 @@ const webhook = require('./routes/webhook');
 const config = require('./config/connection').mongodb;
 
 // DATABASE SETUP
-mongoose.connect(config.connection);
-// Handle the connection event
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, `unable to connect to database: ${config.connection}`));
+// mongoose.connect(config.connection);
+// // Handle the connection event
+// const db = mongoose.connection;
+// db.on('error', console.error.bind(console, `unable to connect to database: ${config.connection}`));
 
-db.once('open', () => {
-  console.log("DB connection alive");
-});
+// db.once('open', () => {
+//   console.log("DB connection alive");
+// });
 
 const app = express();
 

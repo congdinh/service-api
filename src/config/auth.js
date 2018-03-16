@@ -4,9 +4,16 @@
 module.exports = {
   viberAuth: {
     auth_token: "47896b02c3a7d0b4-874c67191966ac49-123e45fb485a77b2",
-    url: "https://17c76fab.ngrok.io",
-    event_types: ["delivered", "seen"],
+    url: "https://9e55bd61.ngrok.io/v1/webhook",
+    event_types: [
+      "delivered",
+      "seen",
+      "failed",
+      "subscribed",
+      "unsubscribed",
+      "conversation_started"
+    ],
     name: "EchoBot",
-    avatar: "http://viber.com/avatar.jpg"
+    avatar: "https://avatars0.githubusercontent.com/u/13956091?s=40&v=4"
   }
 };
