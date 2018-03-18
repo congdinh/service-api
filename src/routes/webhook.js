@@ -7,11 +7,11 @@ const User = require('../server/models/user');
 router.route('/')
   .get(function (req, res) {
     console.log('get: ', req.body);
-    res.send('Update the book');
+    res.status(200).send('GET Webhook' + req.body);
   })
   .post(function (req, res) {
     console.log('post: ', req.body);
-    res.status(200).json('Add a book');
+    res.status(200).json('POST Webhook');
   });
 
 router.route('/set')
@@ -25,7 +25,7 @@ router.route('/set')
       json: Viber
     }, (error, response, body) => {
       if (!error && response.statusCode === 200 && body.status === 1) {
-        res.status(200).json('set webhook done: ');
+        res.status(200).json('set webhook done');
       }
     });
   });

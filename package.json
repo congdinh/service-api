@@ -20,11 +20,9 @@
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "mongoose": "^5.0.10",
-    "mongoose-timestamp": "^0.6.0",
     "morgan": "~1.9.0",
     "request": "^2.85.0",
-    "serve-favicon": "~2.4.5",
-    "viber-bot": "^1.0.13"
+    "serve-favicon": "~2.4.5"
   },
   "devDependencies": {
     "nodemon": "^1.17.2"

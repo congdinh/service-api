@@ -1,18 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const ViberBot = require('viber-bot').Bot;
-const BotEvents = require('viber-bot').Events;
 const Viber = require('../config/auth').viberAuth;
-const TextMessage = require('viber-bot').Message.Text;
 const request = require('request');
 
-// Creating the bot with access token, name and avatar
-const bot = new ViberBot({
-  authToken: Viber.authToken,
-  name: Viber.name,
-  avatar: Viber.avatar
-});
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -61,10 +52,6 @@ router.route('/send')
   .post(function (req, res) {
     console.log('req: ', req.body);
     res.send('Add a book')
-  })
-  .put(function (req, res) {
-    console.log('req: ', req.body);
-    res.send('Update the book')
   });
 
   router.route('/getAccountInfo')
