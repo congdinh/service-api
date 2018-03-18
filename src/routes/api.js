@@ -29,7 +29,7 @@ router.route('/send')
       },
       json: {
         "auth_token": "47896b02c3a7d0b4-874c67191966ac49-123e45fb485a77b2",
-        "receiver": 'p8CgTFVX3Ay4I7zDMjiDXQ',//'JvuZ7+vhutlA1f+zWDzaPQ==',//'p8CgTFVX3Ay4I7zDMjiDXQ==',//"5MNbJ5ovzWgHUVPx+aQirQ==",
+        "receiver": '5MNbJ5ovzWgHUVPx+aQirQ==',//'JvuZ7+vhutlA1f+zWDzaPQ==',//'p8CgTFVX3Ay4I7zDMjiDXQ==',//"5MNbJ5ovzWgHUVPx+aQirQ==",
         "min_api_version": 1,
         "sender": {
           "name": "John McClane",

@@ -11,6 +11,11 @@ const api = require('./routes/api');
 const webhook = require('./routes/webhook');
 const config = require('./config/connection').mongodb;
 
+const ViberBot = require('viber-bot').Bot;
+const BotEvents = require('viber-bot').Events;
+const Viber = require('./config/auth').viberAuth;
+const TextMessage = require('viber-bot').Message.Text;
+
 // DATABASE SETUP
 // mongoose.connect(config.connection);
 // // Handle the connection event
@@ -20,7 +25,15 @@ const config = require('./config/connection').mongodb;
 // db.once('open', () => {
 //   console.log("DB connection alive");
 // });
+const bot = new ViberBot(null, Viber, Viber.url, []);
+bot.getBotProfile()
+.then((info) => {
+  console.log("info: ", info);
 
+});
+
+bot.onTextMessage(/^hi|hello$/i, (message, response) =>
+    response.send(new TextMessage(`Hi there ${response.userProfile.name}. I am ${bot.name}`)));
 const app = express();
 
 // uncomment after placing your favicon in /public
