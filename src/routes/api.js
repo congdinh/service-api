@@ -44,7 +44,7 @@ router.route('/send')
       }
     }, (error, response, body) => {
       if (!error && response.statusCode === 200) {
-        res.status(200).json('GET send_message: ' +  JSON.stringify(body));
+        res.status(200).json((body);
       }
     });
   })
@@ -65,7 +65,7 @@ router.route('/send')
       }
     }, (error, response, body) => {
       if (!error && response.statusCode === 200) {
-        res.status(200).json('getAccountInfo: ' + body);
+        res.status(200).json(body);
       }
     });
   });
@@ -84,7 +84,7 @@ router.route('/send')
       }
     }, (error, response, body) => {
       if (!error && response.statusCode === 200) {
-        res.status(200).json('getUserDetail: ' +  JSON.stringify(body));
+        res.status(200).json(body);
       }
     });
   });
@@ -105,7 +105,7 @@ router.route('/send')
       }
     }, (error, response, body) => {
       if (!error && response.statusCode === 200) {
-        res.status(200).json('POST: ' +  JSON.stringify(body));
+        res.status(200).json(body);
       }
     });
   });
@@ -166,7 +166,7 @@ router.route('/send')
       }
     }, (error, response, body) => {
       if (!error && response.statusCode === 200) {
-        res.status(200).json('broadcast: ' +  JSON.stringify(body));
+        res.status(200).json(body);
       }
     });
     res.status(200).json('sent');
