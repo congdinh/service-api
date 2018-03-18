@@ -65,7 +65,7 @@ router.route('/send')
       }
     }, (error, response, body) => {
       if (!error && response.statusCode === 200) {
-        res.status(200).json('getAccountInfo: ' +  JSON.stringify(body));
+        res.status(200).json('getAccountInfo: ' + body);
       }
     });
   });
@@ -169,7 +169,7 @@ router.route('/send')
         res.status(200).json('broadcast: ' +  JSON.stringify(body));
       }
     });
-    res.status(200).send('sent');
+    res.status(200).json('sent');
   });
   
 module.exports = router;
