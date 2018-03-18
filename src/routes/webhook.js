@@ -6,12 +6,10 @@ const User = require('../server/models/user');
 
 router.route('/')
   .get(function (req, res) {
-    console.log('get: ', req.body);
-    res.status(200).send('GET Webhook' + req.body);
+    res.status(200).send('GET Webhook: ' + JSON.stringify(req.body));
   })
   .post(function (req, res) {
-    console.log('post: ', req.body);
-    res.status(200).json('POST Webhook');
+    res.status(200).json('POST Webhook: ' +  JSON.stringify(req.body));
   });
 
 router.route('/set')

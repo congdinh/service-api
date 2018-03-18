@@ -22,10 +22,10 @@ router.route('/send')
         "auth_token": "47896b02c3a7d0b4-874c67191966ac49-123e45fb485a77b2",
         "receiver": '5MNbJ5ovzWgHUVPx+aQirQ==',//'JvuZ7+vhutlA1f+zWDzaPQ==',//'p8CgTFVX3Ay4I7zDMjiDXQ==',//"5MNbJ5ovzWgHUVPx+aQirQ==",
         "min_api_version": 1,
-        "sender": {
-          "name": "John McClane",
-          "avatar": "https://avatars0.githubusercontent.com/u/13956091?s=40&v=4"
-        },
+        // "sender": {
+        //   "name": "John McClane",
+        //   "avatar": "https://avatars0.githubusercontent.com/u/13956091?s=40&v=4"
+        // },
         "tracking_data": "tracking data",
         "type": "text",
         "text": "Test User! lol. I created bot at https://partners.viber.com.!",
@@ -44,14 +44,12 @@ router.route('/send')
       }
     }, (error, response, body) => {
       if (!error && response.statusCode === 200) {
-        console.log('body: ', body);
+        res.status(200).json('GET send_message: ' +  JSON.stringify(req.body));
       }
     });
-    res.status(200).send('sent');
   })
   .post(function (req, res) {
-    console.log('req: ', req.body);
-    res.send('Add a book')
+    res.status(200).json('POST send_message: ' +  JSON.stringify(req.body));
   });
 
   router.route('/getAccountInfo')
@@ -67,10 +65,9 @@ router.route('/send')
       }
     }, (error, response, body) => {
       if (!error && response.statusCode === 200) {
-        console.log('body: ', body);
+        res.status(200).json('getAccountInfo: ' +  JSON.stringify(req.body));
       }
     });
-    res.status(200).send('sent');
   });
 
   router.route('/getUserDetail')
@@ -87,10 +84,9 @@ router.route('/send')
       }
     }, (error, response, body) => {
       if (!error && response.statusCode === 200) {
-        console.log('body: ', body);
+        res.status(200).json('getUserDetail: ' +  JSON.stringify(req.body));
       }
     });
-    res.status(200).send('sent');
   });
 
   router.route('/post')
@@ -104,19 +100,14 @@ router.route('/send')
       json: {
         "auth_token": "47896b02c3a7d0b4-874c67191966ac49-123e45fb485a77b2",
         "from": "5MNbJ5ovzWgHUVPx+aQirQ==",
-        "sender":{
-            "name":"John McClane",
-            "avatar":"http://avatar.example.com"
-        },
         "type":"text",
         "text":"Hello World!"
       }
     }, (error, response, body) => {
       if (!error && response.statusCode === 200) {
-        console.log('body: ', body);
+        res.status(200).json('POST: ' +  JSON.stringify(req.body));
       }
     });
-    res.status(200).send('sent');
   });
 
   router.route('/broadcast')
@@ -136,25 +127,21 @@ router.route('/send')
        ],
         //"receiver": 'p8CgTFVX3Ay4I7zDMjiDXQ',//'JvuZ7+vhutlA1f+zWDzaPQ==',//'p8CgTFVX3Ay4I7zDMjiDXQ==',//"5MNbJ5ovzWgHUVPx+aQirQ==",
         "min_api_version": 2,
-        "sender": {
-          "name": "John McClane",
-          "avatar": "https://avatars0.githubusercontent.com/u/13956091?s=40&v=4"
-        },
         "tracking_data": "tracking data",
         "type": "rich_media",
-        // "text": "Test User! lol. I created bot at https://partners.viber.com.!",
-        "keyboard":{
-          "Type":"keyboard",
-          "DefaultHeight":true,
-          "Buttons":[
-             {
-                "ActionType":"reply",
-                "ActionBody":"reply to me",
-                "Text":"Key text",
-                "TextSize":"regular"
-             }
-          ]
-       },
+        "text": "Test User! lol. I created bot at https://partners.viber.com.!",
+      //   "keyboard":{
+      //     "Type":"keyboard",
+      //     "DefaultHeight":true,
+      //     "Buttons":[
+      //        {
+      //           "ActionType":"reply",
+      //           "ActionBody":"reply to me",
+      //           "Text":"Key text",
+      //           "TextSize":"regular"
+      //        }
+      //     ]
+      //  },
        "rich_media":{
         "Type":"rich_media",
         "BgColor":"#FFFFFF",
@@ -179,7 +166,7 @@ router.route('/send')
       }
     }, (error, response, body) => {
       if (!error && response.statusCode === 200) {
-        console.log('body: ', body);
+        res.status(200).json('broadcast: ' +  JSON.stringify(req.body));
       }
     });
     res.status(200).send('sent');

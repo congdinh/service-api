@@ -40,8 +40,7 @@ app.use('/v1/status', (req, res) => {
     success: true,
     name: 'Messages API',
     version: '1.0',
-    status: 'green',
-    header: req.header
+    status: 'green'
   });
 });
 
