@@ -120,6 +120,7 @@ router.route('/post')
 
 router.route('/broadcast')
   .get((req, res) => {
+    console.log("req.params: ", req.params);
     request({
       url: 'https://chatapi.viber.com/pa/broadcast_message',
       method: 'POST',
@@ -136,8 +137,8 @@ router.route('/broadcast')
         //"receiver": 'p8CgTFVX3Ay4I7zDMjiDXQ',//'JvuZ7+vhutlA1f+zWDzaPQ==',//'p8CgTFVX3Ay4I7zDMjiDXQ==',//"5MNbJ5ovzWgHUVPx+aQirQ==",
         "min_api_version": 2,
         "tracking_data": "tracking data",
-        "type": "rich_media",
-        // "text": "Test User! lol. I created bot at https://partners.viber.com.!",
+        "type": "text",
+        "text": `${req.query.title}: ${req.query.link}`,
         //   "keyboard":{
         //     "Type":"keyboard",
         //     "DefaultHeight":true,
@@ -150,27 +151,27 @@ router.route('/broadcast')
         //        }
         //     ]
         //  },
-        "rich_media": {
-          "Type": "rich_media",
-          "BgColor": "#FFFFFF",
-          "Buttons": [
-            {
-              "ActionBody": "https://www.google.com",
-              "ActionType": "open-url",
-              "Text": "Should get back my ID instead of replace_me_with_receiver_id"
-            },
-            {
-              "ActionBody": "https://www.google.com",
-              "ActionType": "open-url",
-              "Text": "Should get back my URL encoded ID instead of replace_me_with_url_encoded_receiver_id"
-            },
-            {
-              "ActionBody": "https://www.google.com",
-              "ActionType": "open-url",
-              "Text": "Should get back my name instead of replace_me_with_user_name"
-            }
-          ]
-        }
+        // "rich_media": {
+        //   "Type": "rich_media",
+        //   "BgColor": "#FFFFFF",
+        //   "Buttons": [
+        //     {
+        //       "ActionBody": "https://www.google.com",
+        //       "ActionType": "open-url",
+        //       "Text": "Should get back my ID instead of replace_me_with_receiver_id"
+        //     },
+        //     {
+        //       "ActionBody": "https://www.google.com",
+        //       "ActionType": "open-url",
+        //       "Text": "Should get back my URL encoded ID instead of replace_me_with_url_encoded_receiver_id"
+        //     },
+        //     {
+        //       "ActionBody": "https://www.google.com",
+        //       "ActionType": "open-url",
+        //       "Text": "Should get back my name instead of replace_me_with_user_name"
+        //     }
+        //   ]
+        // }
       }
     }, (error, response, body) => {
       if (!error && response.statusCode === 200) {
