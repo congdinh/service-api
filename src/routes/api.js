@@ -1,185 +1,79 @@
-const express = require('express');
-const router = express.Router();
+import express from "express";
+let router = express.Router();
 
-const Viber = require('../config/auth').viberAuth;
-const request = require('request');
-
+import request from "request-promise";
+import {
+  getAccountInfo,
+  getListFollow,
+  getUserDetail,
+  sendMessage,
+  broadcast,
+  postToPublicGroup,
+  broadcastMedia,
+  broadcastText
+} from "./utils";
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  res.json({ message: 'hooray! welcome to our api!' });
+router.get("/", function(req, res, next) {
+  res.json({ message: "hooray! welcome to our api!" });
 });
 
-router.route('/send')
-  .get((req, res) => {
-    request({
-      url: 'https://chatapi.viber.com/pa/send_message',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      json: {
-        "auth_token": "47896b02c3a7d0b4-874c67191966ac49-123e45fb485a77b2",
-        "receiver": '5MNbJ5ovzWgHUVPx+aQirQ==',//'JvuZ7+vhutlA1f+zWDzaPQ==',//'p8CgTFVX3Ay4I7zDMjiDXQ==',//"5MNbJ5ovzWgHUVPx+aQirQ==",
-        "min_api_version": 1,
-        // "sender": {
-        //   "name": "John McClane",
-        //   "avatar": "https://avatars0.githubusercontent.com/u/13956091?s=40&v=4"
-        // },
-        "tracking_data": "tracking data",
-        "type": "text",
-        "text": "Test User! lol. I created bot at https://partners.viber.com.!",
-        "keyboard": {
-          "Type": "keyboard",
-          "DefaultHeight": true,
-          "Buttons": [
-            {
-              "ActionType": "reply",
-              "ActionBody": "reply to me",
-              "Text": "Key text",
-              "TextSize": "regular"
-            }
-          ]
-        }
-      }
-    }, (error, response, body) => {
-      if (!error && response.statusCode === 200) {
-        res.status(200).json(body);
-      } else {
-        res.status(200).json('Error');
-      }
-    });
-  })
-  .post(function (req, res) {
-    res.status(200).json('POST send_message: ' + JSON.stringify(req.body));
-  });
+router.route("/send").get(async (req, res) => {
+  const receiver = req.query["id"] || "5MNbJ5ovzWgHUVPx+aQirQ=="; //"p8CgTFVX3Ay4I7zDMjiDXQ==";
+  //"JvuZ7+vhutlA1f+zWDzaPQ==";
+  const content = req.query["content"];
+  const data = await sendMessage(receiver, content);
+  res.status(200).json(data);
+});
 
-router.route('/getAccountInfo')
-  .get((req, res) => {
-    request({
-      url: 'https://chatapi.viber.com/pa/get_account_info',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      json: {
-        "auth_token": "47896b02c3a7d0b4-874c67191966ac49-123e45fb485a77b2",
-      }
-    }, (error, response, body) => {
-      if (!error && response.statusCode === 200) {
-        res.status(200).json(body);
-      } else {
-        res.status(200).json('Error');
-      }
-    });
-  });
+router.route("/getAccountInfo").get(async (req, res) => {
+  const data = await getAccountInfo();
+  res.status(200).json(data);
+});
 
-router.route('/getUserDetail')
-  .get((req, res) => {
-    request({
-      url: 'https://chatapi.viber.com/pa/get_user_details',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      json: {
-        "auth_token": "47896b02c3a7d0b4-874c67191966ac49-123e45fb485a77b2",
-        "id": "5MNbJ5ovzWgHUVPx+aQirQ=="
-      }
-    }, (error, response, body) => {
-      if (!error && response.statusCode === 200) {
-        res.status(200).json(body);
-      } else {
-        res.status(200).json('Error');
-      }
-    });
-  });
+router.route("/getUserDetail").get(async (req, res) => {
+  const id = req.query["id"] || "5MNbJ5ovzWgHUVPx+aQirQ=="; //"p8CgTFVX3Ay4I7zDMjiDXQ==";
+  //"JvuZ7+vhutlA1f+zWDzaPQ==";
+  const data = await getUserDetail(id);
+  res.status(200).json(data);
+});
 
-router.route('/post')
-  .get((req, res) => {
-    request({
-      url: 'https://chatapi.viber.com/pa/post',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      json: {
-        "auth_token": "47896b02c3a7d0b4-874c67191966ac49-123e45fb485a77b2",
-        "from": "5MNbJ5ovzWgHUVPx+aQirQ==",
-        "type": "text",
-        "text": "Hello World!"
-      }
-    }, (error, response, body) => {
-      if (!error && response.statusCode === 200) {
-        res.status(200).json(body);
-      } else {
-        res.status(200).json('Error');
-      }
-    });
-  });
+router.route("/getListFollow").get(async (req, res) => {
+  const data = await getListFollow();
+  res.status(200).json(data);
+});
 
-router.route('/broadcast')
-  .get((req, res) => {
-    console.log("req.params: ", req.params);
-    request({
-      url: 'https://chatapi.viber.com/pa/broadcast_message',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      json: {
-        "auth_token": "47896b02c3a7d0b4-874c67191966ac49-123e45fb485a77b2",
-        "broadcast_list": [
-          "p8CgTFVX3Ay4I7zDMjiDXQ",
-          "JvuZ7+vhutlA1f+zWDzaPQ==",
-          "5MNbJ5ovzWgHUVPx+aQirQ==",
-        ],
-        //"receiver": 'p8CgTFVX3Ay4I7zDMjiDXQ',//'JvuZ7+vhutlA1f+zWDzaPQ==',//'p8CgTFVX3Ay4I7zDMjiDXQ==',//"5MNbJ5ovzWgHUVPx+aQirQ==",
-        "min_api_version": 2,
-        "tracking_data": "tracking data",
-        "type": "text",
-        "text": `${req.query.title}: ${req.query.link}`,
-        //   "keyboard":{
-        //     "Type":"keyboard",
-        //     "DefaultHeight":true,
-        //     "Buttons":[
-        //        {
-        //           "ActionType":"reply",
-        //           "ActionBody":"reply to me",
-        //           "Text":"Key text",
-        //           "TextSize":"regular"
-        //        }
-        //     ]
-        //  },
-        // "rich_media": {
-        //   "Type": "rich_media",
-        //   "BgColor": "#FFFFFF",
-        //   "Buttons": [
-        //     {
-        //       "ActionBody": "https://www.google.com",
-        //       "ActionType": "open-url",
-        //       "Text": "Should get back my ID instead of replace_me_with_receiver_id"
-        //     },
-        //     {
-        //       "ActionBody": "https://www.google.com",
-        //       "ActionType": "open-url",
-        //       "Text": "Should get back my URL encoded ID instead of replace_me_with_url_encoded_receiver_id"
-        //     },
-        //     {
-        //       "ActionBody": "https://www.google.com",
-        //       "ActionType": "open-url",
-        //       "Text": "Should get back my name instead of replace_me_with_user_name"
-        //     }
-        //   ]
-        // }
-      }
-    }, (error, response, body) => {
-      if (!error && response.statusCode === 200) {
-        res.status(200).json(body);
-      } else {
-        res.status(200).json('Error');
-      }
-    });
-  });
+router.route("/post").get(async (req, res) => {
+  const receiver = req.query["id"] || "5MNbJ5ovzWgHUVPx+aQirQ=="; //"p8CgTFVX3Ay4I7zDMjiDXQ==";
+  //"JvuZ7+vhutlA1f+zWDzaPQ==";
+  const content = req.query["content"];
+  const data = await postToPublicGroup();
+  res.status(200).json(data);
+});
+
+router.route("/broadcast").get(async (req, res) => {
+  const title = req.query["title"];
+  const content = req.query["content"];
+  const link = req.query["link"];
+  if ((!title && !content) || !link) {
+    const result = {
+      message: "Params are required"
+    };
+    return res.status(200).json(result);
+  }
+  const listFollow = await getListFollow();
+  let members = (listFollow.result && listFollow.result.members) || [];
+  if (!members || members.length === 0) {
+    const result = {
+      message: "Don't have follower",
+      result: listFollow
+    };
+    return res.status(200).json(result);
+  }
+  console.log("members: ", members);
+  members = members.map(i => i.id);
+  const data = await broadcastMedia(members, title, content, link);
+  res.status(200).json(data);
+});
 
 module.exports = router;

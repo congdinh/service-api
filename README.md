@@ -1,5 +1,4 @@
-# Here we go #
-
+# Here we go
 
 # Project Title
 
@@ -18,6 +17,7 @@ What things you need to install the software and how to install them
 NodeJS version 8
 Yarn Global
 ```
+
 ```
 git clone <url>
 yarn install
@@ -33,7 +33,6 @@ Say what the step will be
 ```
 yarn install
 yarn start
-
 ```
 
 And repeat
@@ -72,12 +71,14 @@ yarn install
 yarn start
 
 ```
+
 ```
+
 or use pm2
 
 ## Built With
 
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+- [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
 ## Contributing
 
@@ -87,7 +88,7 @@ Please read [CONTRIBUTING.md](https://boomerang.net.vn) for details on our code 
 
 ## Authors
 
-* **Dinhdev** - *Initial work* - [Cong Dinh](https://github.com/congdinh)
+- **Dinhdev** - _Initial work_ - [Cong Dinh](https://github.com/congdinh)
 
 See also the list of [contributors](https://github.com/congdinh/project/contributors) who participated in this project.
 
@@ -97,5 +98,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* NodeJS Product
-* ES6
+- NodeJS Product
+- ES6

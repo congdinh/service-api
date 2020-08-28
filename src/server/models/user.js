@@ -1,23 +1,25 @@
-const mongoose = require('mongoose');
-const Promise = require('bluebird');
+import mongoose from "mongoose";
 
-const UserSchema = new mongoose.Schema({
-  userId: {
-    type: String,
-    required: true,
-    unique: true
+const UserSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    name: String,
+    status: { type: String, default: true },
+    avatar: String,
+    language: String,
+    country: String,
+    api_version: Number,
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now }
   },
-  name: String,
-  status: { type: String, default: true },
-  avatar: String,
-  language: String,
-  country: String,
-  api_version: Number,
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
-}, { collection: 'user' });
+  { collection: "user" }
+);
 
-UserSchema.pre('save', (next) => {
+UserSchema.pre("save", next => {
   now = new Date();
   this.updatedAt = now;
   if (!this.createdAt) {
@@ -32,14 +34,17 @@ UserSchema.statics.findAll = async (ids, callback) => {
     query.exec(callback);
     return query;
   } else {
-    query.where('user').in(ids).exec(callback)
+    query
+      .where("user")
+      .in(ids)
+      .exec(callback);
   }
   return query;
 };
 
-UserSchema.statics.createOrUpdate = (params) => {
+UserSchema.statics.createOrUpdate = params => {
   this.findOne({ userId: params.id })
-    .then((user) => {
+    .then(user => {
       const temp = {};
       if (!user) {
         temp.userId = params.id;
@@ -50,14 +55,13 @@ UserSchema.statics.createOrUpdate = (params) => {
         temp.api_version = params.api_version;
         return User.create(temp);
       }
-      temp.userId = user.userId !== params.id && param.id || user.userId;
-      temp.name = user.name !== params.name && param.name || user.name;
+      temp.userId = (user.userId !== params.id && param.id) || user.userId;
+      temp.name = (user.name !== params.name && param.name) || user.name;
       return User.update(temp);
     })
-    .catch((error) => {
-      console.log.error('Error while create user');
-      return Promise.reject(error);
+    .catch(error => {
+      console.log.error("Error while create user");
     });
 };
 
-const User = mongoose.model('User', UserSchema);
+export default mongoose.model("User", UserSchema);
